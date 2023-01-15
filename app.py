@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 """
 Created on Sun Jan 15 20:36:24 2023
-
 @author: cleme
 """
 
@@ -150,7 +149,8 @@ def predict_winner_interface(tier_top_blue, div_top_blue, lp_top_blue, champ_top
         equipe_winner = 'red'
     if winner == 0:
         equipe_winner = 'blue'
-    text = f'the {equipe_winner} team will win: final proba = {result}'
+        result = 1 - result
+    text = f'the {equipe_winner} team will win: final pourcentage = {100 * result}%'
     return text
     
     
@@ -160,8 +160,8 @@ all_division = ['IV', 'III', 'II', 'I']
 
 demo = gr.Interface(
     fn=predict_winner_interface,
-    title="winner of the game prediction",
-    description="Predict wich team will win the game",
+    title="prediction of the winner",
+    description="Predict which team (blue or red) will win the game",
     allow_flagging="never",
     inputs=[
         gr.inputs.Dropdown(choices= all_tiers, default="GOLD", label="tier top blue side"),
@@ -219,4 +219,4 @@ demo = gr.Interface(
     outputs = 'text')
 
 
-demo.launch(share=True, show_error = True)
+demo.launch(share=False, show_error = True)
